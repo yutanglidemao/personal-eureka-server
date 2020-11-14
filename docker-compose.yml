@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  code:
+    container_name: ${PROJECT_NAME:-service-demo}
+    image: registry.cn-hangzhou.aliyuncs.com/personal_namespc/docker-package:latest
+    volumes:
+      - data-volume:/service
+    ports:
+      - 8761:8761
+  java:
+    container_name: ${PROJECT_NAME:-service-demo}-java
+    image: registry.cn-hangzhou.aliyuncs.com/personal_namespc/jdk1.8:latest
+    depends_on:
+      - code
+    volumes:
+      - data-volume:/service
+    # networks:
+    #   back-end:
+    network_mode: host
+    command:
+      - ${COMMAND_1:-}
+      - ${COMMAND_2:-}
+      - ${COMMAND_3:-}
+      - ${COMMAND_4:-}
+      - ${COMMAND_5:-}
+      - ${COMMAND_6:-}
+      - ${COMMAND_7:-}
+      - ${COMMAND_8:-}
+volumes:
+  data-volume:
+# networks:
+#   back-end:
+#     external:
+#       name: mollybox-back-network
+
